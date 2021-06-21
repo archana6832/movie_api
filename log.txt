@@ -94,3 +94,15 @@ Timestamp: Mon Jun 21 2021 16:38:56 GMT+0200 (Central European Summer Time)
 URL: /favicon.ico
 Timestamp: Mon Jun 21 2021 16:38:56 GMT+0200 (Central European Summer Time)
 
+URL: /
+Timestamp: Mon Jun 21 2021 17:48:32 GMT+0200 (Central European Summer Time)
+
+URL: /favicon.ico
+Timestamp: Mon Jun 21 2021 17:48:32 GMT+0200 (Central European Summer Time)
+
+URL: /documentation
+Timestamp: Mon Jun 21 2021 17:48:52 GMT+0200 (Central European Summer Time)
+
+URL: /favicon.ico
+Timestamp: Mon Jun 21 2021 17:48:52 GMT+0200 (Central European Summer Time)
+
