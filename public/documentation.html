@@ -1,16 +1,136 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>myFlix</title>
-  </head>
-  <body>
-    <h1>Objective</h1>
-    <p>*To build the server-side component of a “movies” web application.<br>
-    *The web application will provide users with access to information about different
-    movies, directors, and genres.<br> *Users will be able to sign up, update their
-    personal information, and create a list of their favorite movies.</p>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width"/>
+  <title>myFlix Documentation</title>
+  <style>
+      table,
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+</head>
+<body>
+  <h1>Movie API</h1>
+  <p>
+    This is a movie api that can be used to access a list of movies that includes
+    Movie Title and its description, Genre, Directors and  User information.
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Business Logic/Request</th>
+        <th>URL</th>
+        <th>HTTP Method</th>
+        <th>Request body data format</th>
+        <th>Response body data format</th>
+      </tr>
+    </thead>
+    <tbody>
 
-  </body>
-</html>
+      <!-- 1.Return a list of all movies to the user-->
+      <tr>
+        <td>Get a list of movies</td>
+        <td>/movies</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about all the movies</td>
+      </tr>
+
+      <!--2. Return data about a single movie-->
+      <tr>
+        <td>Get data about a single movie</td>
+        <td>/movies/[moviename]</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about a single movie including an ID,
+          movie name and other details about the movie. Example:{<br>
+            id : 1,<br>
+            title: "Luca",<br>
+            director: " Tom Harry"<br>
+          }
+        </td>
+      </tr>
+
+
+      <!--3.Return a list of movies of a particlular genre -->
+      <tr>
+        <td>Get a list of movies by genre</td>
+        <td>/movies/genres/[genre]</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data of a list of movies of a particular genre</td>
+      </tr>
+
+
+      <!--4.Return data about a director-->
+      <tr>
+        <td>Get data about a director by name</td>
+        <td>/directors/[directorName]</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data of a particular director</td>
+      </tr>
+
+      <!--5.Allow new users  to register-->
+      <tr>
+        <td>Add a new user</td>
+        <td>/users</td>
+        <td>POST</td>
+        <td>A JSON object holding data about a new user to add,structure like:<br>
+          {<br>
+            user id : 5,<br>
+            name : "Mathew Thomas",<br>
+            email : mathew@gmail.com<br>
+          }</td>
+          <td>A JSON object holding data about a new user that was added,structure like:<br>
+            {<br>
+              user id : 5,<br>
+              name : "Mathew Thomas",<br>
+              email : mathew@gmail.com<br>
+            }</td>
+          </tr>
+          <!--6.Allow users to update their information-->
+          <tr>
+            <td>Update user information</td>
+            <td>/users/[userName]</td>
+            <td>PUT</td>
+            <td>None</td>
+            <td>A text message indicating the user information updated</td>
+          </tr>
+
+          <!--7. Allow users to add a movie to their favourite list-->
+          <tr>
+            <td>Add to favorites</td>
+            <td>/users/[userName]/movies/[movieName]</td>
+            <td>POST</td>
+            <td>A JSON object containing the movie name.</td>
+            <td>A JSON object containing the movie name.</td>
+          </tr>
+
+          <!--8. Allow users to remove a movie to their favourite list-->
+          <tr>
+            <td>Delete from favorites</td>
+            <td>/users/[userName]/movies/[movieName]</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>A text message indicating the movie is removed from favourites</td>
+          </tr>
+
+          <!--9. Allow users to deregester-->
+          <tr>
+            <td>Delete a user</td>
+            <td>/users/[userName]</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>A text message indicating a user is removed.</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </body>
+    </html>
