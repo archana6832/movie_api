@@ -77,7 +77,7 @@ app.get('/directors/:directorName', (req, res) => {
 });
 //  <!--5.Allow new users  to register-->
 app.post('/users/:username', (req, res) => {
-  res.send('Added new user Successfully');
+  res.send('App is underconstruction.Come back later');
 });
 //  <!--6.Allow users to update their information-->
 app.put('/users/:username', (req, res) => {
