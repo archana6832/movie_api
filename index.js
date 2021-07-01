@@ -53,12 +53,49 @@ app.use(morgan('common'));
 //To Serve Static Files
 app.use(express.static('public'));
 
+//app.get('/movies', (req, res) => {
+//  res.json(topMovies);   //JSON object containing data about top 10 movies.
+//});
 
-// GET route  for Top 10 movies
+//////////////////////////////////////////////Task 2.5///////////////////////////////
+// <!-- 1.Return a list of all movies to the user-->
 app.get('/movies', (req, res) => {
   res.json(topMovies);   //JSON object containing data about top 10 movies.
 });
 
+//  <!--2. Return data about a single movie-->
+app.get('/movies/:moviename', (req, res) => {
+  res.send('Successful GET request returning the data about a single movie');
+});
+//<!--3.Return a list of movies of a particlular genre -->
+app.get('/movies/genres/:genre', (req, res) => {
+  res.send('Successful GET request returning a list of movies of a genre');
+});
+//  <!--4.Return data about a director-->
+app.get('/directors/:directorName', (req, res) => {
+  res.send('Successful GET request returning the data about a single director');
+});
+//  <!--5.Allow new users  to register-->
+app.post('/users/:username', (req, res) => {
+  res.send('Added new user Successfully');
+});
+//  <!--6.Allow users to update their information-->
+app.put('/users/:username', (req, res) => {
+  res.send('Updated user information Successfully');
+});
+//   <!--7. Allow users to add a movie to their favourite list-->
+app.post('/users/:username/movies/:moviename', (req, res) => {
+  res.send('Added movie to favourites Successfully');
+});
+//<!--8. Allow users to remove a movie to their favourite list-->
+app.delete('/users/:username/movies/:moviename', (req, res) => {
+  res.send('Deleted movie from favourites Successfully');
+});
+//  <!--9. Allow users to deregester-->
+app.delete('/users/:username', (req, res) => {
+  res.send('Deleted user Successfully');
+});
+//////////////////////////END of task 2.5////////////////////////////////////////////
 // GET route for default textual response
 app.get('/', (req, res) => {
   res.send('Welcome to myFlix!');
