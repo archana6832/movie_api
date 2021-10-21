@@ -1,7 +1,15 @@
-const express = require('express'),    //Require express
-morgan = require('morgan');
+const express = require('express');    //Require express
+const morgan = require('morgan');
+//Requiring mongoose for integration
+const mongoose = require('mongoose');
+const Models = require('./models.js');
 
+const Movies = Models.Movie;
+const Users = Models.User;
 const app = express();
+
+// Integrating Mongoose with REST API
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Top 10 movies
 let topMovies = [
