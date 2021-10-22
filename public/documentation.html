@@ -43,27 +43,40 @@
 
       <!--2. Return data about a single movie-->
       <tr>
-        <td>Get data about a single movie</td>
+        <td>Get data about a single movie by title</td>
         <td>/movies/[moviename]</td>
         <td>GET</td>
         <td>None</td>
-        <td>A JSON object holding data about a single movie including an ID,
-          movie name and other details about the movie. Example:{<br>
-            id : 1,<br>
-            title: "Luca",<br>
-            director: " Tom Harry"<br>
-          }
+        <td>A JSON object holding data about a single movie.<br>
+           Example:<br>
+                            <p>
+                                {<br>
+                                    <span class="indent">"Genre": { </span><br>
+                                    <span class="double-indent">"Name": "Genre's name",</span><br>
+                                    <span class="double-indent">"Description": "Description of the genre."<br>},</span><br>
+                                    <span class="indent">"Director": {</span><br>
+                                    <span class="double-indent">"Name": "Director's Name",</span><br>
+                                    <span class="double-indent">"Bio": "Director's biography",</span><br>
+                                    <span class="double-indent">"Birthyear": "YYYY",</span><br>
+                                    <span class="double-indent">"Deathyear": "YYYY" <br> },</span><br>
+                                    <span class="indent">"_id": objectId,</span><br>
+                                    <span class="indent">"Title": "Movie Name",</span><br>
+                                    <span class="indent">"Description": "Movie description",</span><br>
+                                    <span class="indent">"imageUrl": "www.link.to/movie/coverartwork",</span><br>
+                                    <span class="indent">"Featured": Boolean</span><br>
+                                }
+                            </p>
         </td>
       </tr>
 
 
-      <!--3.Return a list of movies of a particlular genre -->
+      <!--3. Return data about a genre (description) by name/title  -->
       <tr>
-        <td>Get a list of movies by genre</td>
+        <td>Get data about a specific genre</td>
         <td>/movies/genres/[genre]</td>
         <td>GET</td>
         <td>None</td>
-        <td>A JSON object holding data of a list of movies of a particular genre</td>
+        <td>A JSON object holding data about a particular genre</td>
       </tr>
 
 
@@ -73,7 +86,18 @@
         <td>/directors/[directorName]</td>
         <td>GET</td>
         <td>None</td>
-        <td>A JSON object holding data of a particular director</td>
+        <td>A JSON object holding data of a particular director<br>
+          Example:<br>
+                         <p>
+                             {<br>
+                                 <span class="indent">"_id": objectId,</span><br>
+                                 <span class="double-indent">"Name": "Director's Name",</span><br>
+                                 <span class="double-indent">"Bio": "Director's biography",</span><br>
+                                 <span class="double-indent">"Birthyear": "YYYY",</span><br>
+                                 <span class="double-indent">"Deathyear": "YYYY"</span><br>
+                             }
+                         </p>
+      </td>
       </tr>
 
       <!--5.Allow new users  to register-->
@@ -82,17 +106,26 @@
         <td>/users</td>
         <td>POST</td>
         <td>A JSON object holding data about a new user to add,structure like:<br>
-          {<br>
-            user id : 5,<br>
-            name : "Mathew Thomas",<br>
-            email : mathew@gmail.com<br>
-          }</td>
-          <td>A JSON object holding data about a new user that was added,structure like:<br>
-            {<br>
-              user id : 5,<br>
-              name : "Mathew Thomas",<br>
-              email : mathew@gmail.com<br>
-            }</td>
+          <p>
+                            {<br>
+                                <span class="indent">"Username": "Username",</span><br>
+                                <span class="indent">"Password": "Password",</span><br>
+                                <span class="indent">"Email": "example@mail.com",</span><br>
+                                <span class="indent">"Birthday": "YYYY-mm-dd",</span><br>
+                            }
+            </p>
+        </td>
+          <td>A JSON object holding data about a new user that was added including an ID .The structure is as follows:<br>
+            <p>
+                            {<br>
+                                <span class="indent">"ID": "UserID",</span><br>
+                                <span class="indent">"Username": "Username",</span><br>
+                                <span class="indent">"Password": "Password",</span><br>
+                                <span class="indent">"Email": "example@mail.com",</span><br>
+                                <span class="indent">"Birthday": "YYYY-mm-dd",</span><br>
+                            }
+              </p>
+          </td>
           </tr>
 
           <!--6.Allow users to update their information-->
@@ -100,23 +133,55 @@
             <td>Update user information</td>
             <td>/users/[userName]</td>
             <td>PUT</td>
-            <td>None</td>
-            <td>A text message indicating the user information updated</td>
+            <td>A JSON object holding data about user info to update,<br>
+                        Example:<br>
+                        <p>
+                            {<br>
+                                <span class="indent">"Password": "newpassword"</span>
+                            }
+                        </p>
+              </td>
+              <td>A JSON object holding data of a user info that is sucessfully updated,<br>
+                          Example:<br>
+                          <p>
+                              {<br>
+                                  <span class="indent">"_id": objectId,</span><br>
+                                  <span class="indent">"Name": "Firstname",</span><br>
+                                  <span class="indent">"Username": "Username",</span><br>
+                                  <span class="indent">"Password": "New Password",</span><br>
+                                  <span class="indent">"Email": "email-address@mail.com",</span><br>
+                                  <span class="indent">"Birthday": "YYYY-mm-dd",</span><br>
+                              }
+                          </p>
+                      </td>
           </tr>
 
           <!--7. Allow users to add a movie to their favourite list-->
           <tr>
             <td>Add to favorites</td>
-            <td>/users/[userName]/movies/[movieName]</td>
+            <td>/users/[userName]/movies/[movieID]</td>
             <td>POST</td>
-            <td>A JSON object containing the movie name.</td>
-            <td>A JSON object containing the movie name.</td>
+            <td>None</td>
+            <td>A JSON object containing the user information.<br>
+              Example:<br>
+                              <p>
+                                  {<br>
+                                      <span class="indent">"_id": objectId,</span><br>
+                                      <span class="indent">"Name": "Firstname",</span><br>
+                                      <span class="indent">"Username": "Username",</span><br>
+                                      <span class="indent">"Password": "Password",</span><br>
+                                      <span class="indent">"Email": "email-address@mail.com",</span><br>
+                                      <span class="indent">"Birthday": "YYYY-mm-dd",</span><br>
+                                      <span class="indent">"FavoritesMovies": [MovieID1]</span><br>
+                                  }
+                              </p>
+          </td>
           </tr>
 
           <!--8. Allow users to remove a movie to their favourite list-->
           <tr>
             <td>Delete from favorites</td>
-            <td>/users/[userName]/movies/[movieName]</td>
+            <td>/users/[userName]/movies/[movieID]</td>
             <td>DELETE</td>
             <td>None</td>
             <td>A text message indicating the movie is removed from favourites</td>
