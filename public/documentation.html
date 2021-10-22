@@ -184,7 +184,20 @@
             <td>/users/[userName]/movies/[movieID]</td>
             <td>DELETE</td>
             <td>None</td>
-            <td>A text message indicating the movie is removed from favourites</td>
+            <td>A JSON object containing the user information.<br>
+              Example:<br>
+                              <p>
+                                  {<br>
+                                      <span class="indent">"_id": objectId,</span><br>
+                                      <span class="indent">"Name": "Firstname",</span><br>
+                                      <span class="indent">"Username": "Username",</span><br>
+                                      <span class="indent">"Password": "Password",</span><br>
+                                      <span class="indent">"Email": "email-address@mail.com",</span><br>
+                                      <span class="indent">"Birthday": "YYYY-mm-dd",</span><br>
+                                      <span class="indent">"FavoritesMovies": [MovieID1]</span><br>
+                                  }
+                              </p>
+          </td>
           </tr>
 
           <!--9. Allow users to deregester-->
