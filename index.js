@@ -156,8 +156,8 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
     } else {
-        //res.status(200).send(req.params.MovieID + ' was deleted.')
-        res.json(updatedUser);
+      res.json(updatedUser);
+
     }
   });
 });
