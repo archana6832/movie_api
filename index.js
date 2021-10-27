@@ -20,9 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //calling passport and authorization
 let auth = require('./auth')(app);
+
 const passport = require('passport');
 require('./passport');
-
 
 // Middleware library to log all requests in terminal
 app.use(morgan('common'));
