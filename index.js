@@ -9,21 +9,28 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const app = express();
 
-
-// body parser middleware function
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-let auth = require('./auth')(app); //to import your “auth.js” file into the project
-
-const passport = require('passport'); // to require passport module to the project
-require('./passport');    //to import your “passport.js” file into the project
-
-
 // Integrating Mongoose with REST API
 mongoose.connect('mongodb://localhost:27017/myFlixDB',
 { useNewUrlParser: true, useUnifiedTopology: true });
 
+//activating body-parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//calling passport and authorization
+let auth = require('./auth')(app);
+
+const passport = require('passport');
+require('./passport');
+
+//calling express
+app.use(express.json());
+
+let myLogger = (req, res, next) => {
+  console.log(req.url);
+  next();
+};
+app.use(myLogger);
 // Middleware library to log all requests in terminal
 app.use(morgan('common'));
 
@@ -39,13 +46,13 @@ app.get('/', (req, res) => {
 // <!-- 1.Return a list of all movies to the user-->
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
-  .then ((movies) => {
-    res.status(201).json(movies);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
-  });
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
 });
 // <!-- Return a list of all  users-->
 app.get('/users', (req, res) => {
