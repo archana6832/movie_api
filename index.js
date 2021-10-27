@@ -16,6 +16,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect('mongodb://localhost:27017/myFlixDB',
 { useNewUrlParser: true, useUnifiedTopology: true });
 
+
+let auth = require('./auth')(app); //to import your “auth.js” file into the project
+
+const passport = require('passport'); // to require passport module to the project
+require('./passport');    //to import your “passport.js” file into the project
+
+
 // Middleware library to log all requests in terminal
 app.use(morgan('common'));
 
