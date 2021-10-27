@@ -29,14 +29,14 @@ app.use(morgan('common'));
 //To Serve Static Files
 app.use(express.static('public'));
 
-//////////////////////////////////////////////Task 2.8///////////////////////////////
+//////////////////////////////////////////////Task 2.9///////////////////////////////
 // <!---Welcome message-->
 app.get('/', (req, res) => {
   res.send('Welcome to myFlix');
 });
 
 // <!-- 1.Return a list of all movies to the user-->
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
   .then ((movies) => {
     res.status(201).json(movies);
@@ -185,7 +185,7 @@ app.delete('/users/:Username', (req, res) => {
 });
 
 
-//////////////////////////END of task 2.8////////////////////////////////////////////
+//////////////////////////END of task 2.9////////////////////////////////////////////
 
 
 // Middleware function for error handling
