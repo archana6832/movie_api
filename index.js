@@ -13,6 +13,7 @@ const app = express();
 mongoose.connect('mongodb://localhost:27017/myFlixDB',
 { useNewUrlParser: true, useUnifiedTopology: true });
 
+app.use(express.json());
 //activating body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,15 +24,6 @@ const passport = require('passport');
 require('./passport');
 
 
-
-//calling express
-app.use(express.json());
-
-let myLogger = (req, res, next) => {
-  console.log(req.url);
-  next();
-};
-app.use(myLogger);
 // Middleware library to log all requests in terminal
 app.use(morgan('common'));
 
@@ -45,7 +37,7 @@ app.get('/', (req, res) => {
 });
 
 // <!-- 1.Return a list of all movies to the user-->
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
