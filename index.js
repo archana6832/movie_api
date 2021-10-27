@@ -19,9 +19,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //calling passport and authorization
 let auth = require('./auth')(app);
-
 const passport = require('passport');
 require('./passport');
+
+
 
 //calling express
 app.use(express.json());
@@ -44,7 +45,7 @@ app.get('/', (req, res) => {
 });
 
 // <!-- 1.Return a list of all movies to the user-->
-app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/movies', (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
