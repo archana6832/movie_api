@@ -9,20 +9,19 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const app = express();
 
-// Integrating Mongoose with REST API
-mongoose.connect('mongodb://localhost:27017/myFlixDB',
-{ useNewUrlParser: true, useUnifiedTopology: true });
-
 app.use(express.json());
-//activating body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//calling passport and authorization
-let auth = require('./auth')(app);
+let auth = require('./auth')(app); // to import auth.js file into the project
 
-const passport = require('passport');
-require('./passport');
+const passport = require('passport'); //to require the Passport module
+require('./passport');                //to import the passport.js file
+
+
+// Integrating Mongoose with REST API
+mongoose.connect('mongodb://localhost:27017/myFlixDB',
+{ useNewUrlParser: true, useUnifiedTopology: true });
 
 // Middleware library to log all requests in terminal
 app.use(morgan('common'));
