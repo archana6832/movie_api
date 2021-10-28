@@ -20,10 +20,10 @@
 
   if (!user) {
     console.log('incorrect username');
-    return callback(null, false, {message: 'Incorrect username or password.'});
+    return callback(null, false, {message: 'Incorrect username or password.'});// Message Not coming in call back
   }
 
-  console.log('finished');
+  console.log('finished'); // Not coming in console
   return callback(null, user);
   });
   }));
