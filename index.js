@@ -13,6 +13,11 @@
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
+//including CORS that allows all domain
+  const cors = require('cors');
+  app.use(cors());
+
+
   let auth = require('./auth')(app); // to import auth.js file into the project
 
   const passport = require('passport'); //to require the Passport module
@@ -93,30 +98,32 @@
   });
   //  <!--5.Allow new users  to register-->
   app.post('/users', (req, res) => {
-    Users.findOne({ Username: req.body.Username })
+  let hashedPassword = Users.hashPassword(req.body.Password);
+  Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.Username + 'already exists');
+      //If the user is found, send a response that it already exists
+        return res.status(400).send(req.body.Username + ' already exists');
       } else {
         Users
-        .create({
-          Username: req.body.Username,
-          Password: req.body.Password,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday
-        })
-        .then((user) =>{res.status(201).json(user) })
-        .catch((error) => {
-          console.error(error);
-          res.status(500).send('Error: ' + error);
-        })
+          .create({
+            Username: req.body.Username,
+            Password: hashedPassword,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) => { res.status(201).json(user) })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          });
       }
     })
     .catch((error) => {
       console.error(error);
       res.status(500).send('Error: ' + error);
     });
-  });
+});
   //  <!--6.Allow users to update their information-->
   app.put('/users/:Username', (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
