@@ -1,6 +1,7 @@
   const express = require('express');    //Require express
   const morgan = require('morgan');
   const bodyParser = require('body-parser');
+  const { check, validationResult } = require('express-validator');
   //Requiring mongoose for integration
   const mongoose = require('mongoose');
   const Models = require('./models.js');
@@ -97,7 +98,19 @@
     });
   });
   //  <!--5.Allow new users  to register-->
-  app.post('/users', (req, res) => {
+  app.post('/users', [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ], (req, res) => {
+    // check the validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    
   let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
     .then((user) => {
