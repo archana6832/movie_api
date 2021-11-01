@@ -89,7 +89,7 @@
   });
 
   //  <!--4.Return data about a director-->
-  app.get('/directors/:Name', (req, res) => {
+  app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOne({ 'Director.Name': req.params.Name })
     .then ((director) => {
       res.json(director.Director);
