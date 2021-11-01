@@ -12,9 +12,14 @@ Additional issues around security were addressed using validation and authentica
 Initially the data in the app was accessed through a local host server later MongoDB Atlas is used to host the database.
 
 ## Links
-https://myflix-moviesapp.herokuapp.com/
-https://myflix-moviesapp.herokuapp.com/documentation.html
-https://github.com/archana6832/movie_api
+ https://myflix-moviesapp.herokuapp.com/
+
+
+ https://myflix-moviesapp.herokuapp.com/documentation.html
+
+ 
+ https://myflix-moviesapp.herokuapp.com/documentation.html
+
 
 ## Project Dependencies
 
