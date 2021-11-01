@@ -145,7 +145,7 @@
     Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
       {
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: Users.hashPassword(req.body.Password),
         Email: req.body.Email,
         Birthday: req.body.Birthday
       }
