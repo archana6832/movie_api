@@ -142,10 +142,11 @@
 });
   //  <!--6.Allow users to update their information-->
   app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+    let hashedPassword = Users.hashPassword(req.body.Password);/////for new password hashing
     Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
       {
         Username: req.body.Username,
-        Password: Users.hashPassword(req.body.Password),
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       }
