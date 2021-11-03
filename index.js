@@ -141,25 +141,36 @@
     });
 });
   //  <!--6.Allow users to update their information-->
-  app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
-  //  let hashedPassword = Users.hashPassword(req.body.Password);/////for new password hashing
-    Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
-      {
+  app.put('/users/:Username',
+    [
+      check('Username', 'Username must contain at least 5 characters.').isLength({min: 5}),
+      check('Username', 'Username must only contain alphanumeric characters.').isAlphanumeric(),
+      check('Password', 'Password must contain at least 8 characters.').isLength({min: 8}),
+      check('Email', 'Email must be a valid email address.').isEmail()
+    ],
+    passport.authenticate('jwt', {session: false}), (req, res) => {
+    let errors = validationResult(req);
+    if(!errors.isEmpty()) {
+      return res.status(422).json({errors: errors.array()});
+    }
+    Users.findOneAndUpdate(
+      {Username: req.params.Username},
+      {$set: {
         Username: req.body.Username,
-        Password: req.body.Password,//password change wont be hashed
+        Password: Users.hashPassword(req.body.Password),
         Email: req.body.Email,
         Birthday: req.body.Birthday
       }
-    },
-    { new: true }, // This line makes sure that the updated document is returned
-    (err, updatedUser) => {
-      if(err) {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      } else {
-        res.json(updatedUser);
-      }
-    });
+      },
+      {new: true}
+      )
+      .then((user) => {
+        res.status(200).json(user);
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      })
   });
   //   <!--7. Allow users to add a movie to their favourite list-->
   app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
