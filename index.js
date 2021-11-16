@@ -67,7 +67,7 @@
     });
   });
   //  <!--2. Return data about a single movie by title-->
-  app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
+  app.get('/movies/:Title', (req, res) => {
     Movies.findOne({ Title: req.params.Title })
     .then ((movie) => {
       res.json(movie);
@@ -78,7 +78,7 @@
     });
   });
   //<!--3.Return data about a genre (description) by name/title -->
-  app.get('/movies/genres/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
+  app.get('/movies/genres/:Name', (req, res) => {
     Movies.findOne({ 'Genre.Name': req.params.Name })
     .then ((genre) => {
       res.json(genre.Genre);
@@ -90,7 +90,7 @@
   });
 
   //  <!--4.Return data about a director-->
-  app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
+  app.get('/directors/:Name', (req, res) => {
     Movies.findOne({ 'Director.Name': req.params.Name })
     .then ((director) => {
       res.json(director.Director);
