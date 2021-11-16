@@ -44,16 +44,17 @@
   });
 
   // <!-- 1.Return a list of all movies to the user-->
-  app.get('/movies', function (req, res) {
+  app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
-    .then(function (movies) {
+    .then((movies) => {
       res.status(201).json(movies);
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.error(error);
-      res.status(500).send("Error: " + error);
+      res.status(500).send('Error: ' + error);
     });
 });
+
   // <!-- Return a list of all  users-->
   app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.find()
